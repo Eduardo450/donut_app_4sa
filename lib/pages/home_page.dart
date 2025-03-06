@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               children: [
                 Text("I want to ", style: TextStyle(
-                  fontSize: 20
+                  fontSize: 32
                 )),
                 Text("Eat...", style: TextStyle(
                   //Tamaño de letra
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           //2. Pestañas (TabBar)
-          TabBar(tabs: myTabs),
+          TabBar(tabs: myTabs, splashFactory: NoSplash.splashFactory),
           //3. Contenido de Pestañas (TabBarView)
           Expanded(
             child: TabBarView(
