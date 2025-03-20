@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           //2. Pestañas (TabBar)
-          TabBar(tabs: myTabs, splashFactory: NoSplash.splashFactory),
+          TabBar(tabs: myTabs, splashFactory: NoSplash.splashFactory), //quitar efecto splash de los iconos
           //3. Contenido de Pestañas (TabBarView)
           Expanded(
             child: TabBarView(
