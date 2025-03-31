@@ -39,8 +39,7 @@ class DonutTile extends StatelessWidget {
                       topRight: Radius.circular(24)
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 8,
-                  horizontal: 18),
+                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
                   child:Text(
                     "\$$donutPrice",
                     style:TextStyle(
@@ -49,12 +48,71 @@ class DonutTile extends StatelessWidget {
                       color: donutColor[800],
                     )
                   ),
-                )
+                ),
               ],
-            )
-          ]
+            ),
+            //Donut price
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              child: Image.asset(imageName),
+            ),
+            //Donut Flavor
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                  child:Text(
+                    "$donutFlavor",
+                    style:TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.black87,
+                    )
+                  ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                  child:Text(
+                    "Dunkin's",
+                    style:TextStyle(
+                      fontSize: 12,
+                      color: Colors.black54,
+                    )
+                  ),
+            ),
+            //Icons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                    child:Icon(Icons.favorite_border_outlined,
+                      color: Colors.grey[800])
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero, // Elimina el padding interno del botón
+                      minimumSize: Size(29, 29), // Reduce el tamaño mínimo del botón
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Reduce el área táctil
+                    ),
+                    onPressed: (){},
+                    child: Text(
+                        "Add",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          color: Colors.black87,
+                        ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-      )
+      ),
     );
+
   }
 }
