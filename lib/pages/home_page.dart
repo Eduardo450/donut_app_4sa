@@ -1,3 +1,4 @@
+import 'package:donut_app_4sa/pages/utils/shopping_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:donut_app_4sa/pages/utils/my_tab.dart';
 import 'package:donut_app_4sa/tabs/donut_tab.dart';
@@ -71,8 +72,9 @@ class _HomePageState extends State<HomePage> {
               PancakesTab(),
               PizzaTab(),
             ]),
-          )
+          ),
           //4. Carrito (Cart)
+          const ShoppingCart()
           ],
         ),
       ),
