@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="donut_app_4sa"
+        android:label="Donut App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
