@@ -1,15 +1,73 @@
 import 'package:donut_app_4sa/pages/utils/donut_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:donut_app_4sa/pages/utils/product.dart';
 
 class DonutTab extends StatelessWidget {
-
-  //list of donuts
-  final List donutsOnSale = [
-    //[ donutFlavor, donutStore, donutPrice, donutColor, imageName ],
-    ["Ice Cream", "Krispy Kreme", "36", Colors.blue, "lib/images/icecream_donut.png"],
-    ["Strawberry", "Tere Cazola", "45", Colors.red, "lib/images/strawberry_donut.png"],
-    ["Grape Ape", "Panaderia San Gerardo", "84", Colors.purple, "lib/images/grape_donut.png"],
-    ["Choco", "Donitas Morayta", "95", Colors.brown, "lib/images/chocolate_donut.png"]
+  final List<Product> donutsOnSale = [
+    Product(
+      name: "Clasic",
+      store: "Krispy Kreme",
+      price: 36.0,
+      color: Colors.blue,
+      imagePath: "lib/images/donut/clasic.png",
+      category: "Donut",
+    ),
+    Product(
+      name: "Double Choco",
+      store: "Tere Cazola",
+      price: 45.0,
+      color: Colors.red,
+      imagePath: "lib/images/donut/chocodouble.png",
+      category: "Donut",
+    ),
+    Product(
+      name: "Choco Chips",
+      store: "Panaderia San Gerardo",
+      price: 84.0,
+      color: Colors.purple,
+      imagePath: "lib/images/donut/chocoandchips.png",
+      category: "Donut",
+    ),
+    Product(
+      name: "Nutella",
+      store: "Donitas Morayta",
+      price: 95.0,
+      color: Colors.brown,
+      imagePath: "lib/images/donut/nutella.png",
+      category: "Donut",
+    ),
+    Product(
+      name: "Strawberry",
+      store: "El Postrecito",
+      price: 34.0,
+      color: Colors.blue,
+      imagePath: "lib/images/donut/strawberry.png",
+      category: "Donut",
+    ),
+    Product(
+      name: "Blue Explosion",
+      store: "Donas Mimí",
+      price: 42.0,
+      color: Colors.red,
+      imagePath: "lib/images/donut/blue.png",
+      category: "Donut",
+    ),
+    Product(
+      name: "Spring",
+      store: "Postres MID",
+      price: 49.0,
+      color: Colors.purple,
+      imagePath: "lib/images/donut/primavera.png",
+      category: "Donut",
+    ),
+    Product(
+      name: "White Choco",
+      store: "Las Donitas",
+      price: 64.0,
+      color: Colors.brown,
+      imagePath: "lib/images/donut/whitechoco.png",
+      category: "Donut",
+    ),
   ];
 
   DonutTab({super.key});
@@ -17,25 +75,17 @@ class DonutTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      //Prepa 1: cómo se va a organizar
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //numero de columnas
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        //Proporcion entre ancho y alto 
-        childAspectRatio: 1/1.5),
-      //Cuantos elementos
-      itemCount: 4,
+        childAspectRatio: 1 / 1.5,
+      ),
+      itemCount: donutsOnSale.length,
       padding: const EdgeInsets.all(12),
-      //Como se construirán
       itemBuilder: (context, index) {
         return DonutTile(
-          donutFlavor: donutsOnSale[index][0],
-          donutStore: donutsOnSale[index][1],
-          donutPrice: donutsOnSale[index][2],
-          donutColor: donutsOnSale[index][3],
-          imageName: donutsOnSale[index][4],
+          product: donutsOnSale[index],
         );
-      }
+      },
     );
   }
 }

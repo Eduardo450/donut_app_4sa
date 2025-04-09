@@ -1,84 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:donut_app_4sa/pages/utils/cart_provider.dart';
+import 'package:donut_app_4sa/pages/utils/product.dart';
 
 class DonutTile extends StatelessWidget {
-  final String donutFlavor;
-  final String donutStore;
-  final String donutPrice;
-    //dynamic por que será de tipo color
-  final dynamic donutColor;
-  final String imageName;
+  final Product product;
 
-  const DonutTile(
-    {super.key,
-    required this.donutFlavor,
-    required this.donutStore,
-    required this.donutPrice,
-    required this.donutColor,
-    required this.imageName}
-  );
+  const DonutTile({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
-        //color: donutColor[50]
         decoration: BoxDecoration(
-          color: donutColor[50],
-          //Esquinas redondeadas
+          color: product.color[50],
           borderRadius: BorderRadius.circular(24),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: donutColor[100],
-                    borderRadius: BorderRadius.only(
+                    color: product.color[100],
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(24),
                       topRight: Radius.circular(24)
                     ),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                  child:Text(
-                    "\$$donutPrice",
-                    style:TextStyle(
+                  child: Text(
+                    "\$${product.price.toStringAsFixed(0)}",
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: donutColor[800],
+                      color: product.color[800],
                     )
                   ),
                 ),
               ],
             ),
 
-            //Donut price
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              child: Image.asset(imageName),
+              child: Image.asset(
+                product.imagePath,
+                height: 114, // Altura fija como en original
+                width: 114,  // Ancho fijo como en original
+              ),
             ),
 
-            //Donut Flavor Text
             Text(
-                    donutFlavor,
-                    style:TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.black87,
-                    )
-                  ),
+              product.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.black87,
+              )
+            ),
+            
+            const SizedBox(height: 4), // Espaciado original
+            
             Text(
-                    donutStore,
-                    style:TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
-                    )
-                  ),
+              product.store,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black54,
+              )
+            ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -88,12 +86,14 @@ class DonutTile extends StatelessWidget {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero, // Elimina el padding interno del botón
-                      minimumSize: Size(29, 29), // Reduce el tamaño mínimo del botón
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Reduce el área táctil
+                      padding: EdgeInsets.zero,
+                      minimumSize: const Size(29, 29),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    onPressed: () {},
-                    child: Text(
+                    onPressed: () {
+                      Provider.of<CartProvider>(context, listen: false).addToCart(product);
+                    },
+                    child: const Text(
                       "Add",
                       style: TextStyle(
                         fontSize: 15,
@@ -110,6 +110,5 @@ class DonutTile extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

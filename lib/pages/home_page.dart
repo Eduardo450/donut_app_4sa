@@ -1,5 +1,5 @@
-import 'package:donut_app_4sa/pages/utils/shopping_cart.dart';
 import 'package:flutter/material.dart';
+import 'package:donut_app_4sa/pages/utils/shopping_cart.dart';
 import 'package:donut_app_4sa/pages/utils/my_tab.dart';
 import 'package:donut_app_4sa/tabs/donut_tab.dart';
 import 'package:donut_app_4sa/tabs/burger_tab.dart';
@@ -15,66 +15,90 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List <Widget> myTabs = <Widget>[
-    const MyTab(iconPath: 'lib/icons/donut.png',),
-    const MyTab(iconPath: 'lib/icons/burger.png',),
-    const MyTab(iconPath: 'lib/icons/smoothie.png',),
-    const MyTab(iconPath: 'lib/icons/pancakes.png',),
-    const MyTab(iconPath: 'lib/icons/pizza.png',),
+  // Lista de tabs con sus propiedades
+  final List<Map<String, dynamic>> tabData = [
+    {
+      'iconPath': 'lib/icons/donut.png',
+      'categoryName': 'Donuts',
+      'widget': DonutTab(),
+    },
+    {
+      'iconPath': 'lib/icons/burger.png',
+      'categoryName': 'Burger',
+      'widget': BurgerTab(),
+    },
+    {
+      'iconPath': 'lib/icons/smoothie.png',
+      'categoryName': 'Smoothie',
+      'widget': SmoothieTab(),
+    },
+    {
+      'iconPath': 'lib/icons/pancakes.png',
+      'categoryName': 'Pancakes',
+      'widget': PancakesTab(),
+    },
+    {
+      'iconPath': 'lib/icons/pizza.png',
+      'categoryName': 'Pizza',
+      'widget': PizzaTab(),
+    },
   ];
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(length: myTabs.length,
+    return DefaultTabController(
+      length: tabData.length,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          //Icono de la izquierda
+          elevation: 0,
           leading: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Icon(Icons.menu, color: Colors.grey[800]),
           ),
-          actions: [Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Icon(Icons.person),
-          )]
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Icon(Icons.person, color: Colors.grey[800]),
+            ),
+          ],
         ),
         body: Column(
           children: <Widget>[
-            //1. Texto Principal (Text)
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            child: Row(
-              children: [
-                Text("I want to ", style: TextStyle(
-                  fontSize: 32
-                )),
-                Text("Eat...", style: TextStyle(
-                  //Tamaño de letra
-                  fontSize: 32,
-                  //Negritas
-                  fontWeight: FontWeight.bold,
-                  //Subrayado
-                  decoration: TextDecoration.underline,
-                ),),
-              ],
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              child: Row(
+                children: [
+                  Text("I want to ", style: TextStyle(fontSize: 32)),
+                  Text("Eat...", 
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          //2. Pestañas (TabBar)
-          TabBar(tabs: myTabs, splashFactory: NoSplash.splashFactory), //quitar efecto splash de los iconos
-          //3. Contenido de Pestañas (TabBarView)
-          Expanded(
-            child: TabBarView(
-              children: [
-              DonutTab(),
-              BurgerTab(),
-              SmoothieTab(),
-              PancakesTab(),
-              PizzaTab(),
-            ]),
-          ),
-          //4. Carrito (Cart)
-          const ShoppingCart()
+            // Barra de pestañas con iconos y nombres
+            TabBar(
+              tabs: tabData.map((tab) => MyTab(
+                iconPath: tab['iconPath'],
+                categoryName: tab['categoryName'],
+              )).toList(),
+              labelColor: Colors.pink,
+              unselectedLabelColor: Colors.grey[600],
+              indicatorColor: Colors.pink,
+            ),
+            Expanded(
+              child: TabBarView(
+                children: tabData.map<Widget>((tab) {
+                  // Conversión explícita del widget
+                  return tab['widget'] as Widget;
+                }).toList(),
+              ),
+            ),
+            const ShoppingCart(),
           ],
         ),
       ),
